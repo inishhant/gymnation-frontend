@@ -99,7 +99,7 @@ useEffect(() => {
           </View>
         ))}
         <View className="flex-row">
-          <Text className="text-4xl font-bold text-white mb-10">
+          <Text className="text-4xl font-bold text-white mb-10 z-1">
             {displayedText}
           </Text>
         </View>
