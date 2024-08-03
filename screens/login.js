@@ -56,11 +56,11 @@ import {
 } from "react-native";
 // import { TailwindProvider } from 'nativewind';
 
-export const GymNation = () => {
+const LoginScreen = () => {
   return (
     <SafeAreaView className="flex-1 w-full bg-gray-800 justify-center items-center">
       <Text className="text-white font-bold text-6xl mt-20">
-        <Text className="text-white">Gym</Text>
+        {/* <Text className="text-white">Gym</Text> */}
         <Text className="text-orange-500">Nation</Text>
       </Text>
       <ScrollView
@@ -97,3 +97,5 @@ export const GymNation = () => {
     </SafeAreaView>
   );
 };
+
+export default LoginScreen;
