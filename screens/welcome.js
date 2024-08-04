@@ -10,47 +10,19 @@ import {
   Dimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Svg, { Path } from "react-native-svg"; // Importing the SVG components
-import { SvgXml } from "react-native-svg";
 // import logoSvg from '../assets/images/gym-svgrepo-com.svg';
 import GymRodLogo from "../assets/SVG/gymRod.js";
 import GymLiftLogo from "../assets/SVG/gymLift.js";
-// import { useTailwind } from 'nativewind';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 const WelcomeScreen = ({ navigation }) => {
   //   const tailwind = useTailwind();
+  const buttonAnim = useRef(new Animated.Value(-100)).current;
   const word = "GNation";
   const [displayedText, setDisplayedText] = useState("");
   const [logoPositions, setLogoPositions] = useState([]);
 
-  //   useEffect(() => {
-  //     let currentText = '';
-  //     word.split('').forEach((letter, index) => {
-  //       setTimeout(() => {
-  //         currentText += letter;
-  //         setDisplayedText(currentText);
-  //       }, index * 200); // Adjust the speed of the typing effect
-  //     });
-  //   }, []);
-//   useEffect(() => {
-//     // Generate random positions for logos
-//     const positions = Array.from({ length: 30 }, () => ({
-//       top: Math.random() * (height - 100), // Adjust the height range as needed
-//       left: Math.random() * (width - 100), // Adjust the width range as needed
-//     }));
-//     setLogoPositions(positions);
-
-//     // Handle typing effect
-//     let currentText = "";
-//     word.split("").forEach((letter, index) => {
-//       setTimeout(() => {
-//         currentText += letter;
-//         setDisplayedText(currentText);
-//       }, index * 200); // Adjust the speed of the typing effect
-//     });
-//   }, []);
-useEffect(() => {
+  useEffect(() => {
     // Calculate number of columns and rows for even distribution
     const cols = 5; // Number of columns
     const rows = 10; // Number of rows
@@ -80,7 +52,18 @@ useEffect(() => {
         setDisplayedText(currentText);
       }, index * 200); // Adjust the speed of the typing effect
     });
+
+    // Animate button in from the left
+    Animated.timing(buttonAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
   }, []);
+
+  const buttonStyle = {
+    transform: [{ translateX: buttonAnim }],
+  };
 
   return (
     <LinearGradient colors={["#000000", "#434343"]} className="flex-1 w-full">
@@ -99,16 +82,28 @@ useEffect(() => {
           </View>
         ))}
         <View className="flex-row">
-          <Text className="text-4xl font-bold text-white mb-10 z-1">
+          <Text className="text-8xl font-bold text-white mb-10 z-1">
             {displayedText}
           </Text>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className="absolute bottom-12 bg-white py-4 px-8 rounded-full"
           onPress={() => navigation.navigate("Login")}
         >
           <Text className="text-lg text-black">Get Started</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
+        <Animated.View
+          style={[buttonStyle, styles.button]} // Apply animated style
+          className="absolute bottom-12"
+        >
+          <TouchableOpacity
+            className="bg-white py-4 px-20 rounded-full opacity-90"
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text className="text-lg text-black">Get Started</Text>
+          </TouchableOpacity>
+        </Animated.View>
       </SafeAreaView>
     </LinearGradient>
   );

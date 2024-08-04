@@ -6,7 +6,11 @@ module.exports = {
     "./screens/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        ultra: []
+      }
+    },
   },
   plugins: [],
 };
